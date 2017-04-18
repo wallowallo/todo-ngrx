@@ -11,10 +11,16 @@ import { AppComponent } from './app.component';
 //imports
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
+import { TodoListComponent } from './todo-list/todo-list.component';
+import { LogInComponent } from './log-in/log-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TodoListComponent,
+    LogInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
