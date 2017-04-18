@@ -5,15 +5,19 @@ import { HttpModule } from '@angular/http';
 
 //components
 import { AppComponent } from './app.component';
-
-//services
-
-//imports
-import { MaterialModule } from '@angular/material';
-import 'hammerjs';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+
+//services
+
+
+//imports
+import { MaterialModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdButtonModule, MdCheckboxModule } from '@angular/material';
+import { routing } from './_routing/routing';
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot()
+    MaterialModule,
+    BrowserAnimationsModule,
+    MdButtonModule,
+    MdCheckboxModule,
+    routing
   ],
   providers: [
     //services
