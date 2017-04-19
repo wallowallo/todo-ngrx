@@ -11,11 +11,14 @@ import { Router } from '@angular/router';
 export class TodoListComponent implements OnInit {
   user = "wallowallo";
   loading = false;
+  todoListShow = false;
   todos = [];
+  checked = false;
 
   constructor() { }
 
   ngOnInit() {
+    this.showTodoList();
   }
 
   newTodo(form: NgForm) {
@@ -25,10 +28,16 @@ export class TodoListComponent implements OnInit {
       title: form.value.todoTitle,
       description: form.value.todoDescription
     }];
-    this.todos = this.todos.concat(todo); //make to concat to not mutate array
-    console.log(this.todos);
-    form.reset();
+    this.todos = this.todos.concat(todo);
     this.loading = false;
+    this.showTodoList();
+    form.reset();
   }
 
+  showTodoList() {
+    if(this.todos.length > 0) {
+      return this.todoListShow = true;
+    }
+    return this.todoListShow = false;
+  }
 }

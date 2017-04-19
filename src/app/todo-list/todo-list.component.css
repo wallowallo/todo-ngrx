@@ -1,0 +1,70 @@
+md-card-title {
+  text-align: center;
+}
+
+md-input-container.mat-input-container {
+  display: flex;
+  margin: 20px auto;
+  max-width: 70%;
+}
+
+img.delete, img.update {
+  max-width: 40%;
+  vertical-align: middle;
+}
+
+md-spinner {
+  max-width: 20%;
+  max-height: 25px;
+  display: inline-block;
+}
+
+.listItem .update, .listItem .delete, .listItem .checkbox {
+  display: none;
+}
+
+.listItem:hover .delete {
+  background-color: red;
+  display: inline-block;
+}
+
+.listItem:hover .update {
+  background-color: green;
+  display: inline-block;
+}
+
+.listItem:hover .checkbox {
+  color: grey;
+  display: inline-block;
+}
+
+md-checkbox {
+  margin: 5px;
+}
+
+button.submitButton {
+  display: flex;
+  max-width: 120px;
+  max-height: 50px;
+  margin: auto;
+}
+
+button.delete, button.update {
+  max-width: 30px;
+  margin: 5px;
+}
+
+md-card.listCard {
+  max-width: 60%;
+  margin:  40px auto;
+}
+
+md-card.todoFormCard {
+  max-width: 40%;
+  margin: 40px auto;
+}
+
+md-list {
+  max-width: 70%;
+  margin: auto;
+}
