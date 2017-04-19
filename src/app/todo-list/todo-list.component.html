@@ -32,7 +32,6 @@
       class="submitButton"
       [disabled]="newTodoForm.invalid"><md-spinner *ngIf="loading"></md-spinner>New todo
     </button>
-    <md-progress-bar mode="indeterminate" *ngIf="loading"></md-progress-bar>
   </md-card>
 </form>
 
@@ -45,6 +44,7 @@
       <img md-list-avatar src="assets/task.png" *ngIf="!checked"><img md-list-avatar src="assets/task-complete.png" *ngIf="checked">
       <p md-line>{{todo.title}}</p>
       <p md-line>{{todo.description}}</p>
+
       <md-checkbox class="checkbox" [(ngModel)]="checked">Done</md-checkbox>
       <button class="update" type="button" md-raised-button>Update<img class="update" src="assets/update.png"></button>
       <button class="delete" type="button" md-raised-button>Delete<img class="delete" src="assets/delete.png"></button>
