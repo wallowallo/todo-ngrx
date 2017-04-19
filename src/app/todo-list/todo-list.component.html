@@ -1,3 +1,35 @@
-<p>
-  todo-list works!
-</p>
+<form #newTodoForm="ngForm" (ngSubmit)="newTodo(newTodoForm)">
+  <md-card class="todoFormCard">
+    <md-card-title>
+      {{user}}'s Todolist
+    </md-card-title>
+
+    <md-input-container>
+      <input
+        class="todoTitle"
+        mdInput
+        placeholder="Title"
+        name="todoTitle"
+        ngModel
+        required
+        autofocus>
+    </md-input-container>
+
+    <md-input-container>
+      <textarea
+        class="todoDescription"
+        mdInput
+        name="todoDescription"
+        ngModel
+        placeholder="Description">
+      </textarea>
+    </md-input-container>
+
+    <button
+      type="submit"
+      md-raised-button
+      [disabled]="newTodoForm.invalid">New Todo
+    </button>
+    <md-progress-bar mode="indeterminate" *ngIf="loading"></md-progress-bar>
+  </md-card>
+</form>

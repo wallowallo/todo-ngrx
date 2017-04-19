@@ -15,7 +15,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 //imports
 import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdCheckboxModule } from '@angular/material';
+import { MdInputModule, MdToolbarModule, MdListModule, MdCardModule, MdButtonModule, MdCheckboxModule } from '@angular/material';
 import { routing } from './_routing/routing';
 import 'hammerjs';
 
@@ -34,6 +34,10 @@ import 'hammerjs';
     BrowserAnimationsModule,
     MdButtonModule,
     MdCheckboxModule,
+    MdInputModule,
+    MdToolbarModule,
+    MdListModule,
+    MdCardModule,
     routing
   ],
   providers: [
