@@ -19,15 +19,16 @@ export class TodoListComponent implements OnInit {
   }
 
   newTodo(form: NgForm) {
+    this.loading = true;
     let todo = [{
       id: this.todos.length,
       title: form.value.todoTitle,
       description: form.value.todoDescription
     }];
     this.todos = this.todos.concat(todo); //make to concat to not mutate array
-    this.loading = true;
     console.log(this.todos);
     form.reset();
+    this.loading = false;
   }
 
 }

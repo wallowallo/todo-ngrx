@@ -33,3 +33,16 @@
     <md-progress-bar mode="indeterminate" *ngIf="loading"></md-progress-bar>
   </md-card>
 </form>
+
+<md-card>
+  <md-card-title>
+    hello
+  </md-card-title>
+  <md-list>
+    <md-list-item *ngFor="let todo of todos; let i = index">
+      <md-icon md-list-icon>folder</md-icon>
+      <p md-line>{{todo.title}}</p>
+      <p md-line>{{todo.description}}</p>
+    </md-list-item>
+  </md-list>
+</md-card>
