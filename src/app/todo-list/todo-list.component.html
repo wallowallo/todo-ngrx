@@ -1,30 +1,41 @@
+<button
+  md-mini-fab
+  class="logout"
+  type="button"
+  mdTooltip="Log out"
+  [routerLink]="['/']">
+  <img class="logout" src="assets/logout.png">
+</button>
+
 <form #newTodoForm="ngForm" (ngSubmit)="newTodo(newTodoForm)">
   <md-card class="todoFormCard">
-    <md-card-title>
-      New todo
-    </md-card-title>
 
-    <md-input-container>
-      <input
-        class="todoTitle"
-        mdInput
-        placeholder="Title"
-        name="todoTitle"
-        ngModel
-        required
-        autofocus>
-    </md-input-container>
+    <div class="container">
 
-    <md-input-container>
-      <textarea
-        class="todoDescription"
-        mdInput
-        cols="50"
-        name="todoDescription"
-        ngModel
-        placeholder="Description">
-      </textarea>
-    </md-input-container>
+      <label>New Todo: </label>
+
+      <md-input-container>
+        <input
+          class="todoTitle"
+          mdInput
+          placeholder="Title"
+          name="todoTitle"
+          ngModel
+          required
+          autofocus>
+      </md-input-container>
+
+      <md-input-container>
+        <textarea
+          class="todoDescription"
+          mdInput
+          cols="19"
+          name="todoDescription"
+          ngModel
+          placeholder="Description">
+        </textarea>
+      </md-input-container>
+    </div>
 
     <button
       type="submit"
@@ -36,18 +47,108 @@
 </form>
 
 <md-card class="listCard" *ngIf="todoListShow">
-  <md-card-title>
-    {{user}}'s Todolist
-  </md-card-title>
-  <md-list>
-    <md-list-item *ngFor="let todo of todos; let i = index" class="listItem">
-      <img md-list-avatar src="assets/task.png" *ngIf="!checked"><img md-list-avatar src="assets/task-complete.png" *ngIf="checked">
-      <p md-line>{{todo.title}}</p>
-      <p md-line>{{todo.description}}</p>
 
-      <md-checkbox class="checkbox" [(ngModel)]="checked">Done</md-checkbox>
-      <button class="update" type="button" md-raised-button>Update<img class="update" src="assets/update.png"></button>
-      <button class="delete" type="button" md-raised-button>Delete<img class="delete" src="assets/delete.png"></button>
-    </md-list-item>
+    <md-card-title class="listHeaderTitle">
+      {{user}}'s Todolist
+    </md-card-title>
+
+    <md-button-toggle-group #group="mdButtonToggleGroup">
+      <md-button-toggle mdTooltip="Show uncompleted" value="uncompleted">
+        <img class="toggleImg" src="assets/task.png">
+      </md-button-toggle>
+
+      <md-button-toggle  mdTooltip="Show completed" value="completed">
+        <img class="toggleImg" src="assets/task-complete.png">
+      </md-button-toggle>
+
+      <md-button-toggle mdTooltip="Show all" value="all">
+        <img class="toggleImg" src="assets/list.png">
+      </md-button-toggle>
+    </md-button-toggle-group>
+
+    <div class="progress">
+      <md-progress-bar
+          mdTooltip="Progress bar"
+          class="todoProgress"
+          [color]="color"
+          [mode]="determinate"
+          [value]="value">
+      </md-progress-bar>
+      <h6 class="progress">{{value}}%</h6>
+    </div>
+
+  <md-list>
+    <form #updateTodoForm="ngForm" (ngSubmit)="updateTodo(updateTodoForm)">
+      <md-list-item *ngFor="let todo of todos; let i = index" class="listItem">
+        <img md-list-avatar src="assets/task.png" *ngIf="!todo.checked"><img md-list-avatar src="assets/task-complete.png" *ngIf="todo.checked">
+
+        <span md-line>
+          <span *ngIf="!todo.isEdit">{{todo.title}}</span>
+          <input
+            *ngIf="todo.isEdit"
+            [(ngModel)]="todo.title"
+            type="text"
+            name="title"
+            ngModel>
+        </span>
+
+        <span md-line>
+          <span *ngIf="!todo.isEdit">{{todo.description}}</span>
+          <input
+            *ngIf="todo.isEdit"
+            [(ngModel)]="todo.description"
+            type="text"
+            name="description"
+            ngModel>
+        </span>
+
+        <md-checkbox
+          class="checkbox"
+          *ngIf="!todo.isEdit"
+          [(ngModel)]="todo.checked"
+          name="isEdit"
+          mdTooltip="Done?"
+          >
+        </md-checkbox>
+
+        <button
+          class="edit"
+          *ngIf="!todo.isEdit"
+          type="button"
+          md-raised-button
+          (click)="editTodo(todo)"
+          mdTooltip="Edit"
+          ><img class="edit" src="assets/edit.png">
+        </button>
+
+        <button
+          class="delete"
+          *ngIf="!todo.isEdit"
+          type="button"
+          md-raised-button
+          mdTooltip="Delete"
+          (click)="deleteTodo(i)"
+          ><img class="delete" src="assets/delete.png">
+        </button>
+
+        <button
+          class="update"
+          *ngIf="todo.isEdit"
+          md-raised-button
+          type="submit"
+          mdTooltip="Update"
+          ><img class="update" src="assets/update.png">
+        </button>
+
+        <button
+          class="cancel"
+          *ngIf="todo.isEdit"
+          md-raised-button
+          mdTooltip="Cancel"
+          (click)="cancelEdit(todo)"
+          ><img class="cancel" src="assets/cancel.png">
+        </button>
+      </md-list-item>
+    </form>
   </md-list>
 </md-card>

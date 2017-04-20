@@ -1,14 +1,28 @@
-md-card-title {
-  text-align: center;
+img.logout {
+  max-width: 100%;
+}
+
+button.logout {
+  background-color: Gainsboro;
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+button.logout:hover {
+  background-color: darkred;
 }
 
 md-input-container.mat-input-container {
-  display: flex;
-  margin: 20px auto;
-  max-width: 70%;
+  margin: 10px;
+  max-width: 30%;
 }
 
-img.delete, img.update {
+label {
+  margin-left: 10%;
+}
+
+img.delete, img.update, img.edit, img.cancel {
   max-width: 40%;
   vertical-align: middle;
 }
@@ -19,16 +33,20 @@ md-spinner {
   display: inline-block;
 }
 
-.listItem .update, .listItem .delete, .listItem .checkbox {
+.listItem .update,
+.listItem .delete,
+.listItem .checkbox,
+.listItem .cancel,
+.listItem .edit {
   display: none;
 }
 
-.listItem:hover .delete {
+.listItem:hover .delete, .listItem:hover .cancel {
   background-color: red;
   display: inline-block;
 }
 
-.listItem:hover .update {
+.listItem:hover .update, .listItem:hover .edit {
   background-color: green;
   display: inline-block;
 }
@@ -43,28 +61,64 @@ md-checkbox {
 }
 
 button.submitButton {
-  display: flex;
   max-width: 120px;
-  max-height: 50px;
-  margin: auto;
 }
 
-button.delete, button.update {
-  max-width: 30px;
+button.delete, button.update, button.edit, button.cancel {
   margin: 5px;
 }
 
 md-card.listCard {
-  max-width: 60%;
+  max-width: 80%;
   margin:  40px auto;
 }
 
 md-card.todoFormCard {
-  max-width: 40%;
-  margin: 40px auto;
+  max-width: 50%;
+  margin: 20px auto;
 }
 
 md-list {
   max-width: 70%;
-  margin: auto;
+  margin: 20px auto;
+}
+
+md-progress-bar.todoProgress {
+  position: absolute;
+  top: 35px;
+  right: 70px;
+  max-width: 150px;
+}
+
+h6.progress {
+  position: absolute;
+  top: 5px;
+  right: 30px;
+  max-width: 35px;
+  max-height: 10px;
+  padding: 0;
+}
+
+md-button-toggle-group {
+  position: absolute;
+  top: 20px;
+  left: 40%;
+  max-width: 180px;
+}
+
+md-button-toggle {
+  max-width: 60px;
+  display: flex;
+}
+
+img.toggleImg {
+  max-width: 100%;
+}
+
+md-card-title.listHeaderTitle {
+  max-width: 300px;
+}
+
+div.container {
+  display: inline;
 }
