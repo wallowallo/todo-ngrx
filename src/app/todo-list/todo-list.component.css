@@ -3,7 +3,7 @@ img.logout {
 }
 
 button.logout {
-  background-color: Gainsboro;
+  background-color: grey;
   position: absolute;
   top: 40px;
   right: 40px;
@@ -33,25 +33,17 @@ md-spinner {
   display: inline-block;
 }
 
-.listItem .update,
-.listItem .delete,
-.listItem .checkbox,
-.listItem .cancel,
-.listItem .edit {
-  display: none;
-}
-
-.listItem:hover .delete, .listItem:hover .cancel {
+.listItem .delete, .listItem .cancel {
   background-color: red;
   display: inline-block;
 }
 
-.listItem:hover .update, .listItem:hover .edit {
+.listItem .update, .listItem .edit {
   background-color: green;
   display: inline-block;
 }
 
-.listItem:hover .checkbox {
+.listItem .checkbox {
   color: grey;
   display: inline-block;
 }

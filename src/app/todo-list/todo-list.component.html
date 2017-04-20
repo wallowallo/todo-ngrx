@@ -4,7 +4,7 @@
   type="button"
   mdTooltip="Log out"
   [routerLink]="['/']">
-  <img class="logout" src="assets/logout.png">
+  <img class="logout" src="assets/logout_white.png">
 </button>
 
 <form #newTodoForm="ngForm" (ngSubmit)="newTodo(newTodoForm)">
@@ -52,7 +52,7 @@
       {{user}}'s Todolist
     </md-card-title>
 
-    <md-button-toggle-group #group="mdButtonToggleGroup">
+    <md-button-toggle-group #toggleGroup="mdButtonToggleGroup" (ngModelChange)="toggleList(toggleGroup.value)" [ngModel]="selected">
       <md-button-toggle mdTooltip="Show uncompleted" value="uncompleted">
         <img class="toggleImg" src="assets/task.png">
       </md-button-toggle>
@@ -80,7 +80,7 @@
   <md-list>
     <form #updateTodoForm="ngForm" (ngSubmit)="updateTodo(updateTodoForm)">
       <md-list-item *ngFor="let todo of todos; let i = index" class="listItem">
-        <img md-list-avatar src="assets/task.png" *ngIf="!todo.checked"><img md-list-avatar src="assets/task-complete.png" *ngIf="todo.checked">
+        <img md-list-avatar src="assets/task.png" *ngIf="!todo.completed"><img md-list-avatar src="assets/task-complete.png" *ngIf="todo.completed">
 
         <span md-line>
           <span *ngIf="!todo.isEdit">{{todo.title}}</span>
@@ -104,9 +104,7 @@
 
         <md-checkbox
           class="checkbox"
-          *ngIf="!todo.isEdit"
-          [(ngModel)]="todo.checked"
-          name="isEdit"
+          (click)="toggleTodo(todo)"
           mdTooltip="Done?"
           >
         </md-checkbox>
@@ -118,7 +116,7 @@
           md-raised-button
           (click)="editTodo(todo)"
           mdTooltip="Edit"
-          ><img class="edit" src="assets/edit.png">
+          ><img class="edit" src="assets/edit_white.png">
         </button>
 
         <button
@@ -128,7 +126,7 @@
           md-raised-button
           mdTooltip="Delete"
           (click)="deleteTodo(i)"
-          ><img class="delete" src="assets/delete.png">
+          ><img class="delete" src="assets/delete_white.png">
         </button>
 
         <button
@@ -137,7 +135,7 @@
           md-raised-button
           type="submit"
           mdTooltip="Update"
-          ><img class="update" src="assets/update.png">
+          ><img class="update" src="assets/update_white.png">
         </button>
 
         <button
@@ -146,7 +144,7 @@
           md-raised-button
           mdTooltip="Cancel"
           (click)="cancelEdit(todo)"
-          ><img class="cancel" src="assets/cancel.png">
+          ><img class="cancel" src="assets/cancel_white.png">
         </button>
       </md-list-item>
     </form>
