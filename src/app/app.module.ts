@@ -11,12 +11,10 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 
 //services
 
-
 //imports
 import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
-import { todo } from './_reducers/todo';
 import {
         MdProgressBarModule,
         MdInputModule,
@@ -33,6 +31,10 @@ import {
 import { routing } from './_routing/routing';
 import 'hammerjs';
 
+//reducers
+import { todo } from './_reducers/todo';
+import { filter } from './_reducers/filter';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,7 @@ import 'hammerjs';
     FormsModule,
     HttpModule,
     MaterialModule,
-    StoreModule.provideStore({ todo }),
+    StoreModule.provideStore({ todo, filter }),
     BrowserAnimationsModule,
     MdButtonModule,
     MdCheckboxModule,

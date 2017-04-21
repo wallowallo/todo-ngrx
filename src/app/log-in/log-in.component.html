@@ -1,3 +1,33 @@
-<p>
-  log-in works!
-</p>
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+  <md-card>
+    <h2>Log in</h2>
+
+    <md-input-container>
+      <input
+        mdInput
+        type="text"
+        [(ngModel)]="username"
+        name="username"
+        pattern=""
+        placeholder="Username"
+        required
+        autofocus>
+    </md-input-container>
+
+    <md-input-container>
+      <input
+        mdInput
+        type="{{inputType}}"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Password"
+        required>
+    </md-input-container>
+    <button md-raised-button class="showPassword" type="button" (click)="showPassword()" *ngIf="!passwordHidden">Show</button>
+    <button md-raised-button class="hidePassword" type="button" (click)="hidePassword()" *ngIf="passwordHidden">Hide</button>
+
+    <button md-raised-button class="submit" type="submit" [disabled]="loginForm.invalid || loading">Log in</button>
+
+
+  </md-card>
+</form>

@@ -1,11 +1,11 @@
-export const filter = ( state = [], action) => {
+export const filter = ( state = todo => todo, action ) => {
     switch( action.type ) {
-        case 'ALL':
-          return state;
-        case 'UNCOMPLETE':
-          return state;
-        case 'COMPLETE':
-          return state;
+        case 'SHOW_ALL':
+          return todo => todo;
+        case 'SHOW_UNCOMPLETED':
+          return todo => !todo.completed;
+        case 'SHOW_COMPLETED':
+          return todo => todo.completed;
 
         default:
           return state;

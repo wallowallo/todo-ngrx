@@ -4,8 +4,10 @@ import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Store, provideStore } from '@ngrx/store';
 import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/combineLatest';
 
-import { Todo } from '../_model/todo';
+import { todo } from '../_reducers/todo';
+import { filter } from '../_reducers/filter';
 
 @Component({
   selector: 'app-todo-list',
@@ -14,95 +16,75 @@ import { Todo } from '../_model/todo';
 })
 
 export class TodoListComponent implements OnInit {
-  public todo: Todo;
+  public todos;
+  public id = 0;
   user = "Krister";
   loading = false;
   todoListShow = false;
-  todos = [];
   color = '';
   mode = 'determinate';
   value = 0;
-  selected: string;
-  isEdit = false;
+  filter: string;
 
   constructor(
     private _store: Store<any>
-  ) { }
+  ) {
+      _store.select('todo')
+            .subscribe( todo => {
+                this.todos = todo;
+      });
+      // this.todos = Observable.combineLatest(
+      //   _store.select('todos'),
+      //   _store.select('filter'),
+      //   ( todos: any[], filter ) => {
+      //     return todos.filter(filter);
+      //   }
+      // )
+  }
 
   ngOnInit() {
     this.progressBarColor();
     this.showTodoList();
-    this.todo = {
-      title: '',
-      description: '',
-      isEdit: false,
-      id: 0
-    }
   }
 
   addTodo( form: NgForm ) {
-    this.loading = true;
-    let todo = {
-      id: this.todos.length,
-      title: form.value.todoTitle,
-      description: form.value.todoDescription,
-      isEdit: false,
-      completed: false
-    };
-    this.todos = [...this.todos, todo];
-    this.loading = false;
-    this.showTodoList();
-    this.todoProgress(todo);
+    this._store.dispatch({ type: 'ADD_TODO', payload: {
+        id: ++this.id,
+        title: form.value.todoTitle,
+        description: form.value.todoDescription,
+        isEdit: false,
+        completed: false
+    }})
     form.reset();
+    this.showTodoList();
   }
 
-  updateTodo( form: NgForm, i: number ) {
-    let todo = {
+  updateTodo( form: NgForm ) {
+    this._store.dispatch( { type: 'UPDATE_TODO', payload: {
       title: form.value.title,
-      description: form.value.description,
-      isEdit: false
-    };
+      description: form.value.description
+    }});
   }
 
-  deleteTodo( i: any ) {
-    return this.todos = [
-              ...this.todos.slice(0, i),
-              ...this.todos.slice(i + 1)
-            ];
+  deleteTodo( id: number ) {
+    this.showTodoList();
+    return this._store.dispatch( { type: 'DELETE_TODO', payload: id });
   }
 
-  editTodo( todo: any ) {
-    return {
-      ...todo,
-      isEdit: todo.isEdit = true
-    };
+  editTodo( id: number ) {
+    return this._store.dispatch( { type: 'TOGGLE_EDIT_TODO', payload: id });
   }
 
-  cancelEdit( todo: any ) {
-    return {
-      ...todo,
-      isEdit: todo.isEdit = false
-    };
+  cancelEdit( id: number ) {
+    this.editTodo(id);
   }
 
-  todoProgress( todo: any ) {
-    if(todo.completed === true) {
-      return this.value = 100/this.todos.length;
-    }
-    return ;
+  todoProgress( id: number ) {
+    return this.value = 100/this.todos.length;
   }
 
-  toggleTodo( todo: any ) {
-    if ( todo.completed === true ) {
-      return {
-          ...todo,
-          completed: todo.completed = false
-      };
-    }
-    return {
-      ...todo,
-      completed: todo.completed = true
-    };
+  toggleTodo( id: number ) {
+    this._store.dispatch({ type: 'TOGGLE_TODO_COMPLETED', payload: id });
   }
 
   showTodoList() {
@@ -121,16 +103,7 @@ export class TodoListComponent implements OnInit {
     return this.color = 'primary';
   }
 
-  toggleList( value: string) {
-    if ( value === 'uncompleted' ) {
-      return this.todos = [
-        ...this.todos.filter(todo => !todo.completed)
-      ];
-    } else if ( value === 'completed' ) {
-      return this.todos = [
-        ...this.todos.filter(todo => todo.completed)
-      ];
-    }
-    return this.todos;
+  toggleFilterList( filter ) {
+    this._store.dispatch({ type: filter });
   }
 }

@@ -52,16 +52,16 @@
       {{user}}'s Todolist
     </md-card-title>
 
-    <md-button-toggle-group #toggleGroup="mdButtonToggleGroup" (ngModelChange)="toggleList(toggleGroup.value)" [ngModel]="selected">
-      <md-button-toggle mdTooltip="Show uncompleted" value="uncompleted">
+    <md-button-toggle-group #toggleGroup="mdButtonToggleGroup" (ngModelChange)="toggleFilterList(toggleGroup.value)" [ngModel]="filter">
+      <md-button-toggle mdTooltip="Show uncompleted" value="SHOW_UNCOMPLETED">
         <img class="toggleImg" src="assets/task.png">
       </md-button-toggle>
 
-      <md-button-toggle  mdTooltip="Show completed" value="completed">
+      <md-button-toggle  mdTooltip="Show completed" value="SHOW_COMPLETED">
         <img class="toggleImg" src="assets/task-complete.png">
       </md-button-toggle>
 
-      <md-button-toggle mdTooltip="Show all" value="all">
+      <md-button-toggle mdTooltip="Show all" value="SHOW_ALL">
         <img class="toggleImg" src="assets/list.png">
       </md-button-toggle>
     </md-button-toggle-group>
@@ -104,8 +104,10 @@
 
         <md-checkbox
           class="checkbox"
-          (click)="toggleTodo(todo)"
+          (click)="toggleTodo(todo.id)"
           mdTooltip="Done?"
+          [(ngModel)]="todo.completed"
+          name="todo.completed"
           >
         </md-checkbox>
 
@@ -114,7 +116,7 @@
           *ngIf="!todo.isEdit"
           type="button"
           md-raised-button
-          (click)="editTodo(todo)"
+          (click)="editTodo(todo.id)"
           mdTooltip="Edit"
           ><img class="edit" src="assets/edit_white.png">
         </button>
@@ -125,7 +127,7 @@
           type="button"
           md-raised-button
           mdTooltip="Delete"
-          (click)="deleteTodo(i)"
+          (click)="deleteTodo(todo.id)"
           ><img class="delete" src="assets/delete_white.png">
         </button>
 
@@ -143,7 +145,7 @@
           *ngIf="todo.isEdit"
           md-raised-button
           mdTooltip="Cancel"
-          (click)="cancelEdit(todo)"
+          (click)="cancelEdit(todo.id)"
           ><img class="cancel" src="assets/cancel_white.png">
         </button>
       </md-list-item>
