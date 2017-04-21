@@ -15,6 +15,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 //imports
 import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { todo } from './_reducers/todo';
 import {
         MdProgressBarModule,
         MdInputModule,
@@ -26,7 +28,7 @@ import {
         MdIconModule,
         MdProgressSpinnerModule,
         MdButtonToggleModule,
-        MdTooltipModule 
+        MdTooltipModule
        } from '@angular/material';
 import { routing } from './_routing/routing';
 import 'hammerjs';
@@ -43,6 +45,7 @@ import 'hammerjs';
     FormsModule,
     HttpModule,
     MaterialModule,
+    StoreModule.provideStore({ todo }),
     BrowserAnimationsModule,
     MdButtonModule,
     MdCheckboxModule,

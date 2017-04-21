@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Store, provideStore } from '@ngrx/store';
+import { Observable } from "rxjs/Observable";
 
 import { Todo } from '../_model/todo';
 
@@ -24,7 +25,9 @@ export class TodoListComponent implements OnInit {
   selected: string;
   isEdit = false;
 
-  constructor() { }
+  constructor(
+    private _store: Store<any>
+  ) { }
 
   ngOnInit() {
     this.progressBarColor();
@@ -37,7 +40,7 @@ export class TodoListComponent implements OnInit {
     }
   }
 
-  newTodo( form: NgForm ) {
+  addTodo( form: NgForm ) {
     this.loading = true;
     let todo = {
       id: this.todos.length,
