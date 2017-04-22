@@ -5,46 +5,19 @@ export const todo = ( state = [], action ) => {
               ...state,
               action.payload
             ];
+
         case 'UPDATE_TODO':
-          return state.map( todo => {
-            if ( todo.title === action.payload.title && todo.description === action.payload.description ) {
-              return {
-                ...todo,
-                title: action.payload.title,
-                description: action.payload.description,
-                isEdit: false
-              };
-            }
-            return {
-              ...todo,
-              isEdit: false
-            };
-          });
+          return state.map( todo => ( todo.title === action.payload.title && todo.description === action.payload.description ) ?
+            ({ ...todo, title: action.payload.title, description: action.payload.description, isEdit: false, completed: false }) : todo );
+
         case 'DELETE_TODO':
           return state.filter( todo => todo.id !== action.payload );
+
         case 'TOGGLE_TODO_COMPLETED':
-          return state.map( todo => {
-            if ( todo.id === action.payload ) {
-              return {
-                ...todo,
-                completed: !todo.completed
-              };
-            }
-            return todo;
-          });
+          return state.map( todo => ( todo.id === action.payload ) ? ({ ...todo, completed: !todo.completed }) : todo );
+
         case 'TOGGLE_EDIT_TODO':
-        return state.map( todo => {
-          if ( todo.id === action.payload ) {
-            return {
-              ...todo,
-              isEdit: !todo.isEdit
-            };
-          }
-          return {
-            ...todo,
-            isEdit: false
-          };
-        });
+          return state.map( todo =>  ( todo.id === action.payload ) ? ({ ...todo, isEdit: !todo.isEdit }) : ({ ...todo, isEdit: todo.isEdit = false }) );
 
         default:
           return state;

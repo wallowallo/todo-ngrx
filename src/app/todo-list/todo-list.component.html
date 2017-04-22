@@ -79,7 +79,7 @@
 
   <md-list>
     <form #updateTodoForm="ngForm" (ngSubmit)="updateTodo(updateTodoForm)">
-      <md-list-item *ngFor="let todo of todos; let i = index" class="listItem">
+      <md-list-item *ngFor="let todo of todos" class="listItem">
         <img md-list-avatar src="assets/task.png" *ngIf="!todo.completed"><img md-list-avatar src="assets/task-complete.png" *ngIf="todo.completed">
 
         <span md-line>
@@ -104,10 +104,9 @@
 
         <md-checkbox
           class="checkbox"
-          (click)="toggleTodo(todo.id)"
+          (change)="toggleTodo(todo.id)"
           mdTooltip="Done?"
-          [(ngModel)]="todo.completed"
-          name="todo.completed"
+          [checked]="todo.completed"
           >
         </md-checkbox>
 

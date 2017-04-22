@@ -24,7 +24,6 @@ export class TodoListComponent implements OnInit {
   color = '';
   mode = 'determinate';
   value = 0;
-  filter: string;
 
   constructor(
     private _store: Store<any>
@@ -51,9 +50,7 @@ export class TodoListComponent implements OnInit {
     this._store.dispatch({ type: 'ADD_TODO', payload: {
         id: ++this.id,
         title: form.value.todoTitle,
-        description: form.value.todoDescription,
-        isEdit: false,
-        completed: false
+        description: form.value.todoDescription
     }})
     form.reset();
     this.showTodoList();
