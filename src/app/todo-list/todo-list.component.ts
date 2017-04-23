@@ -4,6 +4,7 @@ import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Store, provideStore } from '@ngrx/store';
 import { Observable } from "rxjs/Observable";
+import { Subject } from 'rxjs/subject';
 import 'rxjs/add/observable/combineLatest';
 
 import { todo } from '../_reducers/todo';
@@ -22,13 +23,18 @@ export class TodoListComponent implements OnInit {
   loading = false;
   todoListShow = false;
   color = '';
-  mode = 'determinate';
   value = 0;
+
+  //subjects
+  // deleteTodos$ = new Subject()
+  //   .map( ( value ) => ({ payload: value, type: 'DELETE_TODO' }));
 
   constructor(
     private _store: Store<any>
   ) {
-      _store.select('todo')
+      // this.deleteTodos$.subscribe( _store.dispatch.bind( value => value )); //Look into observables
+
+      _store.select( 'todo' )
             .subscribe( todo => {
                 this.todos = todo;
       });

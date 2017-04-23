@@ -1,3 +1,76 @@
-<p>
-  sign-up works!
-</p>
+<form #signupForm="ngForm" (ngSubmit)="signup(signupForm)">
+  <md-card>
+    <h2>Sign up</h2>
+
+    <md-input-container>
+      <input
+        mdInput
+        type="text"
+        placeholder="Username"
+        name="username"
+        minlength="4"
+        maxlength="16"
+        [(ngModel)]="password.username"
+        #username="ngModel"
+        pattern="^[a-zA-Z0-9!?()-,.]+$"
+        ngModel
+        required
+        autofocus>
+    </md-input-container>
+    <small
+      [ngStyle]="{'color': 'red'}"
+      [hidden]="username.valid || (username.pristine)">
+        Username required. (Minimum 4 characters)
+    </small>
+
+    <md-input-container>
+      <input
+        mdInput
+        type="{{inputsType}}"
+        ngModel
+        placeholder="Password"
+        name="password"
+        minlength="8"
+        maxlength="16"
+        [(ngModel)]="password.password"
+        #password="ngModel"
+        pattern="^[a-zA-Z0-9!?()-,.]+$"
+        required>
+    </md-input-container>
+    <small
+      [ngStyle]="{'color': 'red'}"
+      [hidden]="password.valid || (password.pristine)">
+      Password required. (Minimum 8 characters)
+    </small>
+
+    <md-input-container>
+      <input
+        mdInput
+        type="{{inputsType}}"
+        placeholder="Repeat password"
+        name="passwordEqual"
+        #passwordEqual="ngModel"
+        validateEqual="password"
+        [(ngModel)]="password.passwordEqual"
+        minlength="8"
+        maxlength="30"
+        pattern="^[a-zA-Z0-9!?()-,.]+$"
+        ngModel
+        required>
+    </md-input-container>
+    <small
+      [ngStyle]="{'color': 'red'}"
+      [hidden]="passwordEqual.valid || (passwordEqual.pristine)">
+      Passwords don't match.
+    </small>
+
+
+    <button md-raised-button class="showPasswords" type="button" (click)="showPasswords()" *ngIf="!passwordHidden">Show</button>
+    <button md-raised-button class="hidePasswords" type="button" (click)="hidePasswords()" *ngIf="passwordHidden">Hide</button>
+
+    <div class="buttonContainer">
+      <button md-raised-button class="submit" type="submit" [disabled]="signupForm.invalid || loading">Sign up</button>
+      <button md-raised-button class="loginLink" type="button" [routerLink]="['/']">Log in</button>
+    </div>
+  </md-card>
+</form>

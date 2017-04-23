@@ -14,6 +14,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 //imports
 import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EqualValidator } from './_directives/equal_validator.directive';
 import { StoreModule } from '@ngrx/store';
 import {
         MdProgressBarModule,
@@ -40,7 +41,8 @@ import { filter } from './_reducers/filter';
     AppComponent,
     TodoListComponent,
     LogInComponent,
-    SignUpComponent
+    SignUpComponent,
+    EqualValidator
   ],
   imports: [
     BrowserModule,

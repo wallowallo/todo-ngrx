@@ -5,6 +5,7 @@
     <md-input-container>
       <input
         mdInput
+        class="username"
         type="text"
         [(ngModel)]="username"
         name="username"
@@ -23,10 +24,15 @@
         placeholder="Password"
         required>
     </md-input-container>
+
     <button md-raised-button class="showPassword" type="button" (click)="showPassword()" *ngIf="!passwordHidden">Show</button>
     <button md-raised-button class="hidePassword" type="button" (click)="hidePassword()" *ngIf="passwordHidden">Hide</button>
 
-    <button md-raised-button class="submit" type="submit" [disabled]="loginForm.invalid || loading">Log in</button>
+
+    <div class="buttonContainer">
+      <button md-raised-button class="submit" type="submit" [disabled]="loginForm.invalid || loading">Log in</button>
+      <button md-raised-button class="signupLink" type="button" [routerLink]="['/signup']">Sign up</button>
+    </div>
 
 
   </md-card>

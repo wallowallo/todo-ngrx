@@ -1,6 +1,42 @@
-button.showPassword, button.hidePassword {
+md-card {
+  max-width: 40%;
+  margin: auto;
 }
 
 md-input-container.mat-input-container {
   display: block;
+  max-width: 50%;
+  margin: 40px auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+button.showPassword:hover, button.hidePassword:hover {
+  color: pink;
+}
+
+button.submit:hover {
+  color: green;
+}
+
+button.submit {
+  margin-right: 20px;
+}
+
+button.signupLink:hover {
+  color: blue;
+}
+
+button.showPassword, button.hidePassword {
+  position: absolute;
+  top: 140px;
+  right: 70px;
+}
+
+div.buttonContainer {
+  display: block;
+  max-width: 230px;
+  margin: auto;
 }
