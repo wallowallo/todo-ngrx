@@ -33,7 +33,7 @@ import { routing } from './_routing/routing';
 import 'hammerjs';
 
 //reducers
-import { todos } from './_reducers/todo';
+import { todos } from './_reducers/todos';
 import { filter } from './_reducers/filter';
 
 @NgModule({

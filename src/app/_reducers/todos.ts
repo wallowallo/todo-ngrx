@@ -5,7 +5,13 @@ export const todos = ( state = defaultTodos, action ) => {
         case 'ADD_TODO':
           return [
               ...state,
-              {title: action.payload.title, description: action.payload.description, id: action.payload.id}
+              {
+                title: action.payload.title,
+                description: action.payload.description,
+                id: action.payload.id,
+                completed: false,
+                isEdit: false
+              }
             ];
 
         case 'UPDATE_TODO':

@@ -5,9 +5,14 @@ import { Router } from '@angular/router';
 import { Store, provideStore } from '@ngrx/store';
 import { Observable } from "rxjs/Observable";
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/operator/merge';
-import 'rxjs/Rx';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/withLatestFrom';
+
+import { todos } from '../_reducers/todos';
+import { filter } from '../_reducers/filter';
 
 @Component({
   selector: 'app-todo-list',
@@ -16,11 +21,12 @@ import 'rxjs/Rx';
 })
 
 export class TodoListComponent implements OnInit {
+  public todos;
   public id = 0;
   user = "Krister";
   loading = false;
   color = '';
-  value = 0;
+  value = 50;
 
   //subjects
   addTodo$ = new Subject()
@@ -36,21 +42,31 @@ export class TodoListComponent implements OnInit {
     .map( ( value: number ) => ({ type: 'TOGGLE_EDIT_TODO', payload: value }));
 
   toggleTodoCompleted$ = new Subject()
-    .map((value: number) => ({ type: 'TOGGLE_TODO_COMPLETED', payload: value }))
+    .map((value: number) => ({ type: 'TOGGLE_TODO_COMPLETED', payload: value }));
 
-todos;
+  toggleFilterList$ = new Subject()
+    .map((filter: any) => ({ type: filter }));
+
 
   constructor(private _store: Store<any>) {
-      this.todos = _store.select('todos');
+      this.todos = Observable.combineLatest(
+			_store.select('todos'),
+			_store.select('filter'),
+			(todos: any[], filter: any) => {
+				return todos.filter(filter);
+			});
 
       Observable.merge(
         this.deleteTodo$,
         this.toggleEditTodo$,
         this.toggleTodoCompleted$,
         this.updateTodo$,
-        this.addTodo$
+        this.addTodo$,
+        this.toggleFilterList$
       )
         .subscribe(_store.dispatch.bind(_store));
+
+
   }
 
   ngOnInit() {
@@ -68,9 +84,5 @@ todos;
       return this.color = 'accent';
     }
     return this.color = 'primary';
-  }
-
-  toggleFilterList( filter ) {
-    this._store.dispatch({ type: filter });
   }
 }

@@ -45,7 +45,7 @@
 
     <button
       type="button"
-      (click)="addTodo$.next(newTodoForm.value)"
+      (click)="addTodo$.next(newTodoForm.value); newTodoForm.reset()"
       md-raised-button
       class="submitButton"
       [disabled]="newTodoForm.invalid"><md-spinner *ngIf="loading"></md-spinner>New todo
@@ -59,7 +59,7 @@
       {{user}}'s Todolist
     </md-card-title>
 
-    <md-button-toggle-group #toggleGroup="mdButtonToggleGroup" (ngModelChange)="toggleFilterList(toggleGroup.value)" [ngModel]="filter">
+    <md-button-toggle-group #toggleGroup="mdButtonToggleGroup" (ngModelChange)="toggleFilterList$.next(toggleGroup.value)" [ngModel]="filter">
       <md-button-toggle mdTooltip="Show uncompleted" value="SHOW_UNCOMPLETED">
         <img class="toggleImg" src="assets/task.png">
       </md-button-toggle>
