@@ -19,7 +19,6 @@ export class TodoListComponent implements OnInit {
   public id = 0;
   user = "Krister";
   loading = false;
-  todoListShow = false;
   color = '';
   value = 0;
 
@@ -31,13 +30,13 @@ export class TodoListComponent implements OnInit {
     .map( (todo: any ) => ({ type: 'UPDATE_TODO', payload: todo }));
 
   deleteTodo$ = new Subject()
-    .map( ( value: number ) => ({ payload: value, type: 'DELETE_TODO' }));
+    .map( ( value: number ) => ({ type: 'DELETE_TODO', payload: value }));
 
   toggleEditTodo$ = new Subject()
-    .map( ( value: number ) => ({ payload: value, type: 'TOGGLE_EDIT_TODO' }));
+    .map( ( value: number ) => ({ type: 'TOGGLE_EDIT_TODO', payload: value }));
 
   toggleTodoCompleted$ = new Subject()
-    .map((value: number) => ({ payload: value, type: 'TOGGLE_TODO_COMPLETED' }))
+    .map((value: number) => ({ type: 'TOGGLE_TODO_COMPLETED', payload: value }))
 
 todos;
 
@@ -56,20 +55,11 @@ todos;
 
   ngOnInit() {
     this.progressBarColor();
-    // this.showTodoList();
   }
 
   todoProgress( id: number ) {
     return this.value = 100/this.todos.length;
   }
-
-  toggleTodo( id: number ) {
-    this._store.dispatch({ type: 'TOGGLE_TODO_COMPLETED', payload: id });
-  }
-
-  // showTodoList() {
-  //     return this.todoListShow = true;
-  // }
 
   progressBarColor() {
     if (this.value >= 0 && this.value < 50) {
