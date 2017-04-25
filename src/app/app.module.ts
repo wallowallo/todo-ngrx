@@ -33,7 +33,7 @@ import { routing } from './_routing/routing';
 import 'hammerjs';
 
 //reducers
-import { todo } from './_reducers/todo';
+import { todos } from './_reducers/todo';
 import { filter } from './_reducers/filter';
 
 @NgModule({
@@ -49,7 +49,7 @@ import { filter } from './_reducers/filter';
     FormsModule,
     HttpModule,
     MaterialModule,
-    StoreModule.provideStore({ todo, filter }),
+    StoreModule.provideStore({ todos, filter }),
     BrowserAnimationsModule,
     MdButtonModule,
     MdCheckboxModule,

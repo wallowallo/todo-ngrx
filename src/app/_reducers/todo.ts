@@ -1,13 +1,15 @@
-export const todo = ( state = [], action ) => {
+const defaultTodos = []
+
+export const todos = ( state = defaultTodos, action ) => {
     switch( action.type ) {
         case 'ADD_TODO':
           return [
               ...state,
-              action.payload
+              {title: action.payload.title, description: action.payload.description, id: action.payload.id}
             ];
 
         case 'UPDATE_TODO':
-          return state.map( todo => ( todo.title === action.payload.title && todo.description === action.payload.description ) ?
+          return state.map( todo => ( todo.id === action.payload.id ) ?
             ({ ...todo, title: action.payload.title, description: action.payload.description, isEdit: false, completed: false }) : todo );
 
         case 'DELETE_TODO':

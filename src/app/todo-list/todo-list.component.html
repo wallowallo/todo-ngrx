@@ -7,7 +7,7 @@
   <img class="logout" src="assets/logout_white.png">
 </button>
 
-<form #newTodoForm="ngForm" (ngSubmit)="addTodo(newTodoForm)">
+<form #newTodoForm="ngForm">
   <md-card class="todoFormCard">
 
     <div class="container">
@@ -16,10 +16,13 @@
 
       <md-input-container>
         <input
-          class="todoTitle"
+          #titleTodo
+          class="title"
           mdInput
           placeholder="Title"
-          name="todoTitle"
+          name="title"
+          [(ngModel)]="title"
+          type="text"
           ngModel
           required
           autofocus>
@@ -27,10 +30,13 @@
 
       <md-input-container>
         <textarea
-          class="todoDescription"
+          #descriptionTodo
+          class="description"
+          type="text"
+          [(ngModel)]="description"
           mdInput
           cols="19"
-          name="todoDescription"
+          name="description"
           ngModel
           placeholder="Description">
         </textarea>
@@ -38,7 +44,8 @@
     </div>
 
     <button
-      type="submit"
+      type="button"
+      (click)="addTodo$.next(newTodoForm.value)"
       md-raised-button
       class="submitButton"
       [disabled]="newTodoForm.invalid"><md-spinner *ngIf="loading"></md-spinner>New todo
@@ -46,7 +53,7 @@
   </md-card>
 </form>
 
-<md-card class="listCard" *ngIf="todoListShow">
+<md-card class="listCard" *ngIf="!todoListShow">
 
     <md-card-title class="listHeaderTitle">
       {{user}}'s Todolist
@@ -78,8 +85,8 @@
     </div>
 
   <md-list>
-    <form #updateTodoForm="ngForm" (ngSubmit)="updateTodo(updateTodoForm)">
-      <md-list-item *ngFor="let todo of todos" class="listItem">
+    <form #updateTodoForm="ngForm">
+      <md-list-item *ngFor="let todo of todos | async" class="listItem">
         <img md-list-avatar src="assets/task.png" *ngIf="!todo.completed"><img md-list-avatar src="assets/task-complete.png" *ngIf="todo.completed">
 
         <span md-line>
@@ -104,7 +111,7 @@
 
         <md-checkbox
           class="checkbox"
-          (change)="toggleTodo(todo.id)"
+          (change)="toggleTodoCompleted$.next(todo.id)"
           mdTooltip="Done?"
           [checked]="todo.completed"
           >
@@ -115,7 +122,7 @@
           *ngIf="!todo.isEdit"
           type="button"
           md-raised-button
-          (click)="editTodo(todo.id)"
+          (click)="toggleEditTodo$.next(todo.id)"
           mdTooltip="Edit"
           ><img class="edit" src="assets/edit_white.png">
         </button>
@@ -126,7 +133,7 @@
           type="button"
           md-raised-button
           mdTooltip="Delete"
-          (click)="deleteTodo(todo.id)"
+          (click)="deleteTodo$.next(todo.id)"
           ><img class="delete" src="assets/delete_white.png">
         </button>
 
@@ -134,8 +141,9 @@
           class="update"
           *ngIf="todo.isEdit"
           md-raised-button
-          type="submit"
+          type="button"
           mdTooltip="Update"
+          (click)="updateTodo$.next(todo)"
           ><img class="update" src="assets/update_white.png">
         </button>
 
@@ -144,7 +152,7 @@
           *ngIf="todo.isEdit"
           md-raised-button
           mdTooltip="Cancel"
-          (click)="cancelEdit(todo.id)"
+          (click)="toggleEditTodo$.next(todo.id)"
           ><img class="cancel" src="assets/cancel_white.png">
         </button>
       </md-list-item>
