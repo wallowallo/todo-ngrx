@@ -27,12 +27,6 @@ img.delete, img.update, img.edit, img.cancel {
   vertical-align: middle;
 }
 
-md-spinner {
-  max-width: 20%;
-  max-height: 25px;
-  display: inline-block;
-}
-
 .listItem .delete, .listItem .cancel {
   background-color: red;
   display: inline-block;

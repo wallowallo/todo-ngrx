@@ -1,4 +1,11 @@
-const defaultTodos = []
+const defaultTodos = [
+  {title: 'Read', description: 'Read about Javascript', completed: true, id: 1, isEdit: false, dateAdded: new Date()},
+  {title: 'Learn', description: 'Learn about redux', completed: true, id: 2, isEdit: false, dateAdded: new Date()},
+  {title: 'Learn', description: 'Learn DevOps', completed: true, id: 3, isEdit: false, dateAdded: new Date()},
+  {title: 'Code', description: 'Refactor clock-ngrx app', completed: true, id: 4, isEdit: false, dateAdded: new Date()},
+  {title: 'Plan', description: 'Use trello to plan next project', completed: true, id: 5, isEdit: false, dateAdded: new Date()},
+  {title: 'Chores', description: 'Buy groceries', completed: false, id: 6, isEdit: false, dateAdded: new Date()}
+]
 
 export const todos = ( state = defaultTodos, action ) => {
     switch( action.type ) {
@@ -8,9 +15,10 @@ export const todos = ( state = defaultTodos, action ) => {
               {
                 title: action.payload.title,
                 description: action.payload.description,
-                id: action.payload.id,
+                id: new Date().getTime(),
                 completed: false,
-                isEdit: false
+                isEdit: false,
+                dateAdded: new Date()
               }
             ];
 

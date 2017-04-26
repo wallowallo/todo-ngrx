@@ -23,15 +23,13 @@ import { filter } from '../_reducers/filter';
 
 export class TodoListComponent implements OnInit {
   public todos;
-  public id = 0;
   user = "Krister";
-  loading = false;
   color = '';
   value = 0;
 
   //subjects
   addTodo$ = new Subject()
-    .map( (todo: any ) => ({ type: 'ADD_TODO', payload: {...todo, id: ++this.id} }));
+    .map( (todo: any ) => ({ type: 'ADD_TODO', payload: todo }));
 
   updateTodo$ = new Subject()
     .map( (todo: any ) => ({ type: 'UPDATE_TODO', payload: todo }));
@@ -81,6 +79,7 @@ export class TodoListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.todoProgress$.next();
     this.progressBarColor();
   }
 

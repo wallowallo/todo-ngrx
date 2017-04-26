@@ -48,7 +48,7 @@
       (click)="addTodo$.next(newTodoForm.value); newTodoForm.reset(); todoProgress$.next()"
       md-raised-button
       class="submitButton"
-      [disabled]="newTodoForm.invalid"><md-spinner *ngIf="loading"></md-spinner>New todo
+      [disabled]="newTodoForm.invalid">New todo
     </button>
   </md-card>
 </form>
@@ -107,6 +107,10 @@
             type="text"
             name="description"
             ngModel>
+        </span>
+
+        <span md-line>
+          Added: {{todo.dateAdded | date: 'd/M/y'}}
         </span>
 
         <md-checkbox
