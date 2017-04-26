@@ -8,6 +8,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/withLatestFrom';
 
@@ -26,7 +27,7 @@ export class TodoListComponent implements OnInit {
   user = "Krister";
   loading = false;
   color = '';
-  value = 50;
+  value = 0;
 
   //subjects
   addTodo$ = new Subject()
@@ -47,6 +48,8 @@ export class TodoListComponent implements OnInit {
   toggleFilterList$ = new Subject()
     .map((filter: any) => ({ type: filter }));
 
+  todoProgress$ = new Subject()
+
 
   constructor(private _store: Store<any>) {
       this.todos = Observable.combineLatest(
@@ -55,6 +58,14 @@ export class TodoListComponent implements OnInit {
 			(todos: any[], filter: any) => {
 				return todos.filter(filter);
 			});
+
+      this.todoProgress$
+        .withLatestFrom(this.todos, (_,y) => y)
+        .map((todo) =>  todo)
+        .subscribe((todos) => {
+          this.todoProgress(todos);
+          this.progressBarColor();
+        });
 
       Observable.merge(
         this.deleteTodo$,
@@ -73,8 +84,12 @@ export class TodoListComponent implements OnInit {
     this.progressBarColor();
   }
 
-  todoProgress( id: number ) {
-    return this.value = 100/this.todos.length;
+  todoProgress(todos: any) {
+    let a = todos.map((todo) => todo)
+    let filter = a.filter((todo) => todo.completed);
+    let individualValue = 100/a.length;
+    let value = filter.length * individualValue;
+    return this.value = value;
   }
 
   progressBarColor() {

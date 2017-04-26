@@ -45,7 +45,7 @@
 
     <button
       type="button"
-      (click)="addTodo$.next(newTodoForm.value); newTodoForm.reset()"
+      (click)="addTodo$.next(newTodoForm.value); newTodoForm.reset(); todoProgress$.next()"
       md-raised-button
       class="submitButton"
       [disabled]="newTodoForm.invalid"><md-spinner *ngIf="loading"></md-spinner>New todo
@@ -81,7 +81,7 @@
           [mode]="determinate"
           [value]="value">
       </md-progress-bar>
-      <h6 class="progress">{{value}}%</h6>
+      <h6 class="progress">{{value | number : '1.2-2'}}%</h6>
     </div>
 
   <md-list>
@@ -111,7 +111,7 @@
 
         <md-checkbox
           class="checkbox"
-          (change)="toggleTodoCompleted$.next(todo.id)"
+          (change)="toggleTodoCompleted$.next(todo.id); todoProgress$.next()"
           mdTooltip="Done?"
           [checked]="todo.completed"
           >
@@ -133,7 +133,7 @@
           type="button"
           md-raised-button
           mdTooltip="Delete"
-          (click)="deleteTodo$.next(todo.id)"
+          (click)="deleteTodo$.next(todo.id); todoProgress$.next()"
           ><img class="delete" src="assets/delete_white.png">
         </button>
 
@@ -143,7 +143,7 @@
           md-raised-button
           type="button"
           mdTooltip="Update"
-          (click)="updateTodo$.next(todo)"
+          (click)="updateTodo$.next(todo); todoProgress$.next()"
           ><img class="update" src="assets/update_white.png">
         </button>
 
