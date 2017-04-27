@@ -16,6 +16,7 @@ import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EqualValidator } from './_directives/equal_validator.directive';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {
         MdProgressBarModule,
         MdInputModule,
@@ -62,7 +63,8 @@ import { filter } from './_reducers/filter';
     MdButtonToggleModule,
     MdProgressSpinnerModule,
     MdProgressBarModule,
-    routing
+    routing,
+    StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   providers: [
     //services
