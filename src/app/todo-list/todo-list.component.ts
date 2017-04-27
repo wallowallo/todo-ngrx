@@ -12,6 +12,7 @@ import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/withLatestFrom';
 
+import { Todo } from '../_models/todo';
 import { todos } from '../_reducers/todos';
 import { filter } from '../_reducers/filter';
 
@@ -53,7 +54,7 @@ export class TodoListComponent implements OnInit {
       this.todos = Observable.combineLatest(
 			_store.select('todos'),
 			_store.select('filter'),
-			(todos: any[], filter: any) => {
+			(todos: Todo[], filter: any) => {
 				return todos.filter(filter);
 			});
 
