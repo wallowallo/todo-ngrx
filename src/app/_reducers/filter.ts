@@ -1,5 +1,5 @@
-export const filter = ( state = todo => todo, action ) => {
-    switch( action.type ) {
+export const filter = ( state = todo => todo, { type } = { type: "" } ) => {
+    switch( type ) {
       case 'SHOW_UNCOMPLETED':
         return todo => !todo.completed;
 

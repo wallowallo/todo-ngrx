@@ -21,7 +21,6 @@
           mdInput
           placeholder="Title"
           name="title"
-          [(ngModel)]="title"
           type="text"
           ngModel
           required
@@ -33,7 +32,6 @@
           #descriptionTodo
           class="description"
           type="text"
-          [(ngModel)]="description"
           mdInput
           cols="19"
           name="description"
@@ -53,13 +51,13 @@
   </md-card>
 </form>
 
-<md-card class="listCard" *ngIf="!todoListShow">
+<md-card class="listCard">
 
     <md-card-title class="listHeaderTitle">
       {{user}}'s Todolist
     </md-card-title>
 
-    <md-button-toggle-group #toggleGroup="mdButtonToggleGroup" (ngModelChange)="toggleFilterList$.next(toggleGroup.value)" [ngModel]="filter">
+    <md-button-toggle-group #toggleGroup="mdButtonToggleGroup" (ngModelChange)="toggleFilterList$.next(toggleGroup.value)" [(ngModel)]="filters">
       <md-button-toggle mdTooltip="Show uncompleted" value="SHOW_UNCOMPLETED">
         <img class="toggleImg" src="assets/task.png">
       </md-button-toggle>
@@ -78,7 +76,7 @@
           mdTooltip="Progress bar"
           class="todoProgress"
           [color]="color"
-          [mode]="determinate"
+          mode="determinate"
           [value]="value">
       </md-progress-bar>
       <h6 class="progress">{{value | number : '1.2-2'}}%</h6>

@@ -12,7 +12,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 //services
 
 //imports
-import { MaterialModule } from '@angular/material';
+import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EqualValidator } from './_directives/equal_validator.directive';
 import { StoreModule } from '@ngrx/store';
@@ -49,7 +49,6 @@ import { filter } from './_reducers/filter';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule,
     StoreModule.provideStore({ todos, filter }),
     BrowserAnimationsModule,
     MdButtonModule,
@@ -65,6 +64,7 @@ import { filter } from './_reducers/filter';
     MdProgressBarModule,
     routing,
     StoreDevtoolsModule.instrumentOnlyWithExtension()
+    //!environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : [] when you want to not have the devtools in production mode
   ],
   providers: [
     //services

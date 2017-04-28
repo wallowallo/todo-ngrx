@@ -14,6 +14,7 @@ import 'rxjs/add/observable/combineLatest';
 export class LogInComponent implements OnInit {
   inputType = 'password';
   passwordHidden = false;
+  loading = false;
 
   constructor() { }
 

@@ -4,6 +4,7 @@ import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Store, provideStore } from '@ngrx/store';
 import { Observable } from "rxjs/Observable";
+import { Observer } from 'rxjs/Observer';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/filter';
@@ -23,40 +24,39 @@ import { filter } from '../_reducers/filter';
 })
 
 export class TodoListComponent implements OnInit {
-  public todos;
+  public todos: Observable<Array<any>>;
+  public filters: string = 'SHOW_ALL';
   user = "Krister";
   color = '';
   value = 0;
 
   //subjects
-  addTodo$ = new Subject()
-    .map( (todo: any ) => ({ type: 'ADD_TODO', payload: todo }));
+  public addTodo$: any = new Subject()
+    .map(( todo: any ) => ({ type: 'ADD_TODO', payload: todo }));
 
-  updateTodo$ = new Subject()
-    .map( (todo: any ) => ({ type: 'UPDATE_TODO', payload: todo }));
+  public updateTodo$: any = new Subject()
+    .map(( todo: any ) => ({ type: 'UPDATE_TODO', payload: todo }));
 
-  deleteTodo$ = new Subject()
-    .map( ( value: number ) => ({ type: 'DELETE_TODO', payload: value }));
+  public deleteTodo$: any = new Subject()
+    .map(( value: number ) => ({ type: 'DELETE_TODO', payload: value }));
 
-  toggleEditTodo$ = new Subject()
-    .map( ( value: number ) => ({ type: 'TOGGLE_EDIT_TODO', payload: value }));
+  public toggleEditTodo$: any = new Subject()
+    .map(( value: number ) => ({ type: 'TOGGLE_EDIT_TODO', payload: value }));
 
-  toggleTodoCompleted$ = new Subject()
-    .map((value: number) => ({ type: 'TOGGLE_TODO_COMPLETED', payload: value }));
+  public toggleTodoCompleted$: any = new Subject()
+    .map(( value: number ) => ({ type: 'TOGGLE_TODO_COMPLETED', payload: value }));
 
-  toggleFilterList$ = new Subject()
-    .map((filter: any) => ({ type: filter }));
+  public toggleFilterList$: any = new Subject()
+    .map(( filters: string ) => ({ type: filters }));
 
-  todoProgress$ = new Subject()
+  public todoProgress$: any = new Subject();
 
 
   constructor(private _store: Store<any>) {
       this.todos = Observable.combineLatest(
 			_store.select('todos'),
 			_store.select('filter'),
-			(todos: Todo[], filter: any) => {
-				return todos.filter(filter);
-			});
+			(todos: Todo[], filter: any) => ( todos !== undefined ) ? todos.filter(filter) : []);
 
       this.todoProgress$
         .withLatestFrom(this.todos, (_,y) => y)
@@ -82,6 +82,12 @@ export class TodoListComponent implements OnInit {
   ngOnInit() {
     this.todoProgress$.next();
     this.progressBarColor();
+  }
+
+  getState(store: any, selector: string) {
+    let _state: any;
+    store.take(1).subscribe(o => _state = o);
+    return _state;
   }
 
   todoProgress(todos: any) {

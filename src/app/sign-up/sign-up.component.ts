@@ -17,6 +17,7 @@ export class SignUpComponent implements OnInit {
   public password: Password;
   inputsType = 'password';
   passwordHidden = false;
+  loading = false;
 
   constructor() { }
 

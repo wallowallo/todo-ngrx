@@ -7,14 +7,14 @@ const defaultTodos = [
   {title: 'Chores', description: 'Buy groceries', completed: false, id: 6, isEdit: false, dateAdded: new Date()}
 ]
 
-export const todos = ( state = defaultTodos, action ) => {
-    switch( action.type ) {
+export const todos = ( state = defaultTodos, { type, payload } = { type: "", payload: null } ) => {
+    switch( type ) {
         case 'ADD_TODO':
           return [
               ...state,
               {
-                title: action.payload.title,
-                description: action.payload.description,
+                title: payload.title,
+                description: payload.description,
                 id: new Date().getTime(),
                 completed: false,
                 isEdit: false,
@@ -23,17 +23,17 @@ export const todos = ( state = defaultTodos, action ) => {
             ];
 
         case 'UPDATE_TODO':
-          return state.map( todo => ( todo.id === action.payload.id ) ?
-            ({ ...todo, title: action.payload.title, description: action.payload.description, isEdit: false, completed: false }) : todo );
+          return state.map( todo => ( todo.id === payload.id ) ?
+            ({ ...todo, title: payload.title, description: payload.description, isEdit: false, completed: false }) : todo );
 
         case 'DELETE_TODO':
-          return state.filter( todo => todo.id !== action.payload );
+          return state.filter( todo => todo.id !== payload );
 
         case 'TOGGLE_TODO_COMPLETED':
-          return state.map( todo => ( todo.id === action.payload ) ? ({ ...todo, completed: !todo.completed }) : todo );
+          return state.map( todo => ( todo.id === payload ) ? ({ ...todo, completed: !todo.completed }) : todo );
 
         case 'TOGGLE_EDIT_TODO':
-          return state.map( todo =>  ( todo.id === action.payload ) ? ({ ...todo, isEdit: !todo.isEdit }) : ({ ...todo, isEdit: todo.isEdit = false }) );
+          return state.map( todo =>  ( todo.id === payload ) ? ({ ...todo, isEdit: !todo.isEdit }) : ({ ...todo, isEdit: todo.isEdit = false }) );
 
         default:
           return state;
