@@ -84,12 +84,6 @@ export class TodoListComponent implements OnInit {
     this.progressBarColor();
   }
 
-  getState(store: any, selector: string) {
-    let _state: any;
-    store.take(1).subscribe(o => _state = o);
-    return _state;
-  }
-
   todoProgress(todos: any) {
     let a = todos.map((todo) => todo)
     let filter = a.filter((todo) => todo.completed);
